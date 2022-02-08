@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
  <head>
-     <title>Extra - Credit, Seasonal Styles</title>
+     <title>Seasonal Styles</title>
   <meta charset="utf-8" />
   <meta name="robots" content="noindex,nofollow" />
   <meta name="viewport" content="width=device-width" />
@@ -35,28 +35,40 @@
 	display:inline-block;
 	margin-left:5%;
 }
+
+div#myDiv{
+    /*background-color:purple;*/
+}
+
+div#myOtherDiv p{
+    /*background-color:yellow;*/
+}
+
+div#YetAnotherDiv li:nth-child(even){
+    /*background-color:yellow;*/
+}
+
+
+
   </style>
  </head>
  <body>
 	<header role="banner">
 	    <img src="images/four-seasons.gif" alt="Seasonal Logo Goes Here" class="flexible" id="logo" />
 		<h1 class="masthead">Eddie Browser</h1>
+		<nav>
+			<ul>
+				<li class="seasons"><a href="Default">Default</a></li>
+				<li class="seasons"><a href="Spring">Spring</a></li>
+				<li class="seasons"><a href="Summer">Summer</a></li>
+				<li class="seasons"><a href="Fall">Fall</a></li>
+				<li class="seasons"><a href="Winter">Winter</a></li>
+			</ul>
+		</nav>
 	</header>
      
    <main class="wrapper">
     <header><h3>Outfitter for All Seasons!</h3></header>
-    <p>
-        <form id="dateForm">
-        <label for="dateField">
-            Input Date:<input type="text" name="dateField" id="dateField" />
-        </label>
-            <input type="submit" value="submit" />
-        </form>
-     </p>
-
-     <p>
-        This page using jQuery: a fast, small, and feature-rich JavaScript library. Type in a date in the box, and the page should change accordingly to the season. 
-     </p>
     <p>
     The colors of the seasonal images are as follows:
         <ul class="colors">
@@ -66,6 +78,22 @@
             <li>Winter: <b>#005393</b></li>
         </ul>
     </p>
+    <div id="myDiv">This is inside a div with the id of myDiv</div>
+    <div id="myOtherDiv">
+        <p>I'm in a p tag</p>
+        <p>I'm in a p tag</p>
+        <p>I'm in a p tag</p>
+        <p>I'm in a p tag</p>
+    </div>
+    <div id="YetAnotherDiv">
+        <ul>
+            <li>i'm a list item</li>
+            <li>i'm a list item</li>
+            <li>i'm a list item</li>
+            <li>i'm a list item</li>
+            <li>i'm a list item</li>
+        </ul>
+
     <p>
     Aesthetic gentrify YOLO McSweeney's typewriter single-origin coffee. Slow-carb hella listicle lomo, Helvetica single-origin coffee butcher stumptown. Chambray try-hard church-key mumblecore, tote bag PBR cardigan. Retro Austin Brooklyn, blog Intelligentsia gentrify jean shorts sartorial bicycle rights gastropub. Aesthetic wayfarers Pitchfork, tattooed Carles quinoa meh leggings distillery pork belly banjo. Umami cred lumbersexual skateboard, pork belly Tumblr vegan letterpress. Fixie bicycle rights butcher chillwave, gluten-free health goth Echo Park locavore whatever.
     <img src="images/300x400.png" alt="Season Wear Goes Here" id="wear" />
@@ -80,70 +108,56 @@
     Text provided by <a href="http://hipsum.co/" target="_blank">Hipster Ipsum</a>
     </p>
     <footer>
-    <p><small>&copy; 2022 by 
-        CHANEL BUMATAY, All Rights Reserved ~ 
+    <p><small>&copy; 2021 by 
+        YOUR NAME HERE, All Rights Reserved ~ 
         <a id="html-checker" href="#">Check HTML</a> ~ 
         <a id="css-checker" href="#">Check CSS</a></small>
     </p>
     </footer>
+    <script>
+        document.getElementById("myDiv").style.backgroundColor = "orange";
+
+        document.querySelector("div#myDiv").style.backgroundColor = "blue";
+
+        document.querySelector("div#myDiv").innerHTML= "Here is new text!";
+
+
+        //jQuery("document").ready(function(){
+        //    alert("I'm jQuery!");
+        //});
+
+        $("document").ready(function(){
+            //alert("I'm still jQuery!");
+
+            let $theDiv = $("div#myDiv");
+
+            $theDiv
+            .css("background-color", "blue")
+            .css("border","1px solid black")
+            .append(" Here's some additional text!")
+            .fadeOut(3000);
+
+            let counter = 0;    
+            $("div#myOtherDiv p").each(function(){
+                counter++;
+                $(this).prepend(counter + " - "); 
+
+            });
+
+            $("div#YetAnotherDiv li:nth-child(even)").css("background-color", "blue");
+            $("div#YetAnotherDiv li").hide();
+            $("div#YetAnotherDiv").hide()
+            .fadeIn(3000,function(){
+                $("div#YetAnotherDiv li").each(function(){
+                    $(this).slideDown(2000);
+                });
+                 
+            });
+
+        });
+
+    </script>
   </main>
   <script src="js/main.js"></script>
-  <script>
-	$("document").ready(function(){
-		$('#dateForm').submit(function(e){//handle form submission event
-            e.preventDefault();//stop default submission
-			var datetext = $('input[name=dateField]').val();//grab data from textbox
-			var formDate = new Date(datetext);//create a date from form input
-			var today = new Date();
-            var month = formDate.getMonth();
-
-        switch(month){
-            case 0:
-            case 1:
-            case 2:
-                //winter
-                $("#logo").attr("src","images/winter.gif");
-                $("#wear").attr("src","images/winter-wear.jpg");
-                $("html").css("background-color", "#005393")
-                alert("Brrrr, Winter is cold. Here's a jacket!");
-            break; 
-            
-            case 3:
-            case 4:
-            case 5:
-                //spring
-                $("#logo").attr("src","images/spring.gif");
-                $("#wear").attr("src","images/spring-wear.jpg");
-                $("html").css("background-color", "#2B7129")
-                alert("Spring is here! Frolick amongst the flowers.");
-            break;   
-                
-            case 6:
-            case 7:
-            case 8:               
-                //summer
-                $("#logo").attr("src","images/summer.gif");
-                $("#wear").attr("src","images/summer-wear.jpg");
-                $("html").css("background-color", "#EBA52B")
-                alert("It's a hot Summer, be sure to drink alot of water.");
-            break; 
-
-
-            case 9:
-            case 10:
-            case 11:
-                //fall
-                $("#logo").attr("src","images/fall.gif");
-                $("#wear").attr("src","images/fall-wear.jpg");
-                $("html").css("background-color", "#A81124")
-                alert("The leaves are changing colors, it must be Fall!");
-            break;   
-        }
-                alert(season);
-                //alert("I'm clicked!");
-           });
-       });
-
-   </script>
   </body>
 </html>
